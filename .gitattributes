@@ -1,0 +1,7 @@
+# This repo targets Linux/aarch64 boards: keep line endings LF everywhere,
+# including the working tree, so shell scripts stay runnable after checkout.
+* text=auto eol=lf
+
+*.jpg binary
+*.jpeg binary
+*.png binary

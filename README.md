@@ -12,6 +12,9 @@
 ├─ ocr_cpu_test.py       # 主程序：摄像头 → 光影自适应 → PaddleOCR → 文本（+ 盲文编码钩子）
 ├─ diag_ocr.py           # 链路诊断：合成图 vs 实拍帧，区分"模型坏了"和"画面里没字"
 ├─ requirements.txt      # 依赖与版本（含 aarch64 上的版本自洽说明）
+├─ tools/
+│  ├─ install_deps.sh    # 板端离线安装依赖（wheel 由电脑侧下好推过去）+ 版本自洽修复
+│  └─ run_on_desktop.sh  # 在板子自己的桌面会话里启动预览窗（注入 DISPLAY/XAUTHORITY）
 ├─ docs/
 │  └─ board-setup.md     # 板端环境准备与常见故障排查
 └─ README.md
@@ -57,6 +60,23 @@ python3 ocr_cpu_test.py --cam 2 --no-window
 | `--interval S` | 连续识别间隔，默认 3.0 秒 |
 | `--no-adaptive` | 关闭光影自适应预处理（对照实验用） |
 | `--braille` | 识别后调用盲文编码钩子（当前未实现，仅提示） |
+
+## 工具脚本（Tools）
+
+板子（aarch64 / Debian 系）上最常用的两件事已经脚本化：
+
+```sh
+# 1) 离线安装依赖：wheel 在电脑上下好并 adb push 到板子后，在板子上执行
+sh tools/install_deps.sh /home/pi/ocr_test/wheels
+#    若你终端里的 python3 是 pyenv 那套，显式指定解释器：
+sh tools/install_deps.sh /home/pi/ocr_test/wheels ~/.pyenv/versions/3.10.15/bin/python3
+#    脚本会先清掉多份 opencv 安装（它们共用 cv2/ 目录），再装固定版本组合并做 import 自检
+
+# 2) 在板子自己的桌面会话里启动预览窗（远程 adb/ssh 场景下 cv2.imshow 需要显式注入会话变量）
+sh tools/run_on_desktop.sh 2 300     # 摄像头节点 2，跑 300 秒（默认）
+```
+
+电脑侧下载 wheel 的完整命令与注意事项见 `docs/board-setup.md` 第四节。
 
 ## 输出（Outputs）
 
