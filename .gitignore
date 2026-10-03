@@ -12,6 +12,9 @@ ocr_out/
 wheels/
 *.log
 
+# 调试临时目录（按 code-authoring 规则：临时脚本与产物统一放这里，不带进提交）
+.debug/
+
 # 编辑器
 .vscode/
 .idea/
