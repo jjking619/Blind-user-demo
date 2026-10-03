@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 运行产物（每帧落盘）
+ocr_out/
+*.jpg
+*.jpeg
+*.png
+
+# 离线依赖目录 / 日志
+wheels/
+*.log
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store

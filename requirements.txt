@@ -1,0 +1,20 @@
+# CPU 方案依赖（在 aarch64 + Python 3.10/3.12 上实测通过的一组版本）
+#
+# 注意：不要盲目升级 numpy / opencv。
+#   - paddlepaddle 2.6.2 与 opencv-python 4.6.0.66 的 aarch64 轮子按 NumPy 1.x 构建，
+#     与 NumPy 2.x 混用会报 "numpy.core.multiarray failed to import"
+#   - opencv-python / opencv-python-headless / opencv-contrib-python 共用同一个 cv2/ 目录，
+#     只保留需要的那个；混装后再卸载会删坏 cv2（表现为 AttributeError: module 'cv2' has no attribute 'INTER_NEAREST'）
+
+numpy==1.26.4
+scipy==1.14.1
+scikit-image==0.25.2
+tifffile==2024.9.20
+pandas==2.2.3
+setuptools
+
+opencv-python==4.6.0.66
+opencv-contrib-python==4.6.0.66
+
+paddlepaddle==2.6.2
+paddleocr==2.7.3
